@@ -46,6 +46,14 @@ export default function HeroSection() {
       {/* Gradient blobs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#6dffba]/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
       <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#7bd0ff]/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      {/* Hero art illustration — faded background decoration */}
+      <div className="absolute inset-0 flex items-center justify-end pointer-events-none overflow-hidden" aria-hidden="true">
+        <img
+          src="/hero-art.jpg"
+          alt=""
+          className="w-[60%] h-full object-cover opacity-[0.04] mix-blend-luminosity"
+        />
+      </div>
 
       <div className="container-max relative z-10">
         {/* Status chip */}

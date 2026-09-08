@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
 import Header from './components/Header'
 import HeroSection from './components/HeroSection'
+import TechMarquee from './components/TechMarquee'
 import ServicesSection from './components/ServicesSection'
 import WhyUsSection from './components/WhyUsSection'
+import AboutSection from './components/AboutSection'
 import PortfolioSection from './components/PortfolioSection'
 import ProcessSection from './components/ProcessSection'
 import TechStackSection from './components/TechStackSection'
@@ -11,7 +13,6 @@ import Footer from './components/Footer'
 
 function App() {
   useEffect(() => {
-    // Add dark class to html element
     document.documentElement.classList.add('dark')
   }, [])
 
@@ -24,8 +25,10 @@ function App() {
       
       <main className="w-full pt-16">
         <HeroSection />
+        <TechMarquee />
         <ServicesSection />
         <WhyUsSection />
+        <AboutSection />
         <PortfolioSection />
         <ProcessSection />
         <TechStackSection />
