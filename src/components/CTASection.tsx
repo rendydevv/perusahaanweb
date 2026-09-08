@@ -84,10 +84,13 @@ export default function CTASection() {
 
             {/* Contact details */}
             <div className="flex flex-wrap gap-4 pt-2">
-              <span className="flex items-center gap-2 text-[#849589] text-[13px]" aria-disabled="true">
-                <span className="material-symbols-outlined text-[16px]">close</span>
-                {c.email} — {c.comingSoon}
-              </span>
+              <a
+                href={`mailto:${LINKS.email}`}
+                className="flex items-center gap-2 text-[#bacbbe] hover:text-[#6dffba] transition-colors text-[13px]"
+              >
+                <span className="material-symbols-outlined text-[16px]">mail</span>
+                {LINKS.email}
+              </a>
               <a
                 href={LINKS.whatsapp}
                 target="_blank"

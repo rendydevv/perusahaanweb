@@ -142,15 +142,14 @@ export default function Footer() {
               {f.contactTitle}
             </h4>
             <div className="flex flex-col gap-3">
-              <span
-                className="text-[13px] text-[#4d4f57] flex items-center gap-2"
+              <a
+                href={`mailto:${LINKS.email}`}
+                className="text-[13px] text-[#849589] hover:text-[#6dffba] transition-colors flex items-center gap-2"
                 style={{ fontFamily: 'Space Grotesk, sans-serif' }}
-                aria-disabled="true"
-                title={`${f.email} — ${f.comingSoon}`}
               >
-                <span className="material-symbols-outlined text-[14px]">close</span>
-                {f.email} — {f.comingSoon}
-              </span>
+                <span className="material-symbols-outlined text-[14px]">mail</span>
+                {LINKS.email}
+              </a>
               <a
                 href={LINKS.whatsapp}
                 target="_blank"

@@ -4,6 +4,7 @@ import type { ReactNode } from 'react'
 export type Lang = 'en' | 'id'
 
 export const LINKS = {
+  email: 'rendyseftia0709@gmail.com',
   github: 'https://github.com/rendydevv',
   instagram: 'https://www.instagram.com/rendyseftiaa_',
   whatsapp: 'https://wa.me/6282154956553',
