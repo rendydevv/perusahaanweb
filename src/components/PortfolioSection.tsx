@@ -1,76 +1,13 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLanguage } from '../i18n'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const projects = [
-  {
-    id: 'GOV-001',
-    client: 'INSTANSI PEMERINTAH',
-    status: 'PRODUCTION',
-    category: 'Document Management System',
-    categoryColor: 'text-[#7bd0ff]',
-    categoryBg: 'bg-[#7bd0ff]/10',
-    title: 'SIARSIP',
-    subtitle: 'Sistem Informasi Arsip Surat Kedinasan',
-    desc: 'Platform pengelolaan surat masuk dan keluar untuk instansi pemerintah. Fitur ekspor PDF/Excel, cetak rekap, arsip digital, dan manajemen pengguna berbasis peran.',
-    tags: ['Laravel', 'MySQL', 'Blade', 'RBAC', 'PDF Export'],
-    image: '/portfolio/siarsip.jpg',
-    accent: '#7bd0ff',
-    accentBg: 'rgba(123,208,255,0.06)',
-    stats: [
-      { label: 'Surat Diarsipkan', value: '8.4K+' },
-      { label: 'Pengguna Aktif', value: '120+' },
-      { label: 'Satker', value: '14' },
-    ],
-    type: 'DMS',
-  },
-  {
-    id: 'HEALTH-002',
-    client: 'RSUD ABDUL RIVAI',
-    status: 'LIVE',
-    category: 'Network Monitoring System',
-    categoryColor: 'text-[#6dffba]',
-    categoryBg: 'bg-[#6dffba]/10',
-    title: 'NMS RSUD Abdul Rivai',
-    subtitle: 'Network Monitoring & Device Health Dashboard',
-    desc: 'Dashboard monitoring jaringan real-time untuk 128 perangkat. Deteksi status online/offline/warning, alert otomatis, topology map, log aktivitas, dan laporan harian.',
-    tags: ['React', 'Node.js', 'WebSocket', 'PostgreSQL', 'Ping Monitor'],
-    image: '/portfolio/nms.jpg',
-    accent: '#6dffba',
-    accentBg: 'rgba(109,255,186,0.06)',
-    stats: [
-      { label: 'Devices Monitored', value: '128' },
-      { label: 'Uptime', value: '99.7%' },
-      { label: 'Rooms', value: '5+' },
-    ],
-    type: 'NMS',
-  },
-  {
-    id: 'HEALTH-003',
-    client: 'INDEPENDENT PROJECT',
-    status: 'BETA',
-    category: 'AI Chat Application',
-    categoryColor: 'text-[#ffddb8]',
-    categoryBg: 'bg-[#ffddb8]/10',
-    title: 'Teman Bicara',
-    subtitle: 'Mental Health AI Companion App',
-    desc: 'Aplikasi chat berbasis AI untuk teman curhat mental health. Percakapan empatis, privasi penuh, tanpa nama, tanpa daftar. Dirancang dengan editorial minimal dan pengalaman yang hangat.',
-    tags: ['React', 'LLM API', 'Tailwind', 'Serverless', 'Privacy-First'],
-    image: '/portfolio/temanbicara.jpg',
-    accent: '#ffddb8',
-    accentBg: 'rgba(255,221,184,0.06)',
-    stats: [
-      { label: 'Response Time', value: '<2s' },
-      { label: 'Privacy', value: '100%' },
-      { label: 'No Signup', value: 'Required' },
-    ],
-    type: 'AI App',
-  },
-]
-
 export default function PortfolioSection() {
+  const { text } = useLanguage()
+  const p = text.portfolio
   const sectionRef = useRef<HTMLElement>(null)
   const cardsRef = useRef<HTMLDivElement>(null)
 
@@ -80,32 +17,39 @@ export default function PortfolioSection() {
       if (!sectionRef.current || !cardsRef.current) return
       
       // Header animation
-      gsap.from('.portfolio-header', {
-        y: 30,
-        autoAlpha: 0,
-        duration: 0.6,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          once: true,
-        },
-      })
+      gsap.set('.portfolio-header', { autoAlpha: 0 })
+      gsap.fromTo('.portfolio-header',
+        { y: 30 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.6,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 75%',
+            once: true,
+          },
+        }
+      )
 
       // Cards stagger
       const cards = cardsRef.current.querySelectorAll('.project-card-item')
-      gsap.from(cards, {
-        y: 60,
-        autoAlpha: 0,
-        duration: 0.65,
-        stagger: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: cardsRef.current,
-          start: 'top 75%',
-          once: true,
-        },
-      })
+      gsap.fromTo(cards,
+        { y: 60, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.65,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: cardsRef.current,
+            start: 'top 75%',
+            once: true,
+          },
+        }
+      )
     })
     return () => mm.revert()
   }, [])
@@ -124,21 +68,21 @@ export default function PortfolioSection() {
 
       <div className="container-max relative z-10">
         {/* Section header */}
-        <div className="portfolio-header flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16" style={{ opacity: 0 }}>
+        <div className="portfolio-header flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div className="flex flex-col gap-3 max-w-2xl">
             <div className="section-label">
               <span className="w-2 h-2 rounded-full bg-[#00e599]" />
-              <span>Production Deployments</span>
+              <span>{p.label}</span>
             </div>
             <h2
               id="portfolio-heading"
               className="text-[clamp(28px,4vw,40px)] font-bold tracking-tight text-[#e3e1e9]"
               style={{ fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-0.03em' }}
             >
-              Selected Work
+              {p.title}
             </h2>
             <p className="text-[16px] text-[#bacbbe] leading-relaxed">
-              Sistem digital nyata yang sudah berjalan di production — dari manajemen arsip pemerintah hingga monitoring jaringan rumah sakit dan aplikasi AI.
+              {p.desc}
             </p>
           </div>
           
@@ -146,24 +90,23 @@ export default function PortfolioSection() {
           <div className="flex items-center gap-4 flex-shrink-0">
             <div className="flex flex-col items-end gap-1">
               <span className="text-[32px] font-bold text-[#6dffba]" style={{ fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-0.04em' }}>3</span>
-              <span className="text-[10px] text-[#849589] uppercase tracking-widest" style={{ fontFamily: 'JetBrains Mono, monospace' }}>Featured Projects</span>
+              <span className="text-[10px] text-[#849589] uppercase tracking-widest" style={{ fontFamily: 'JetBrains Mono, monospace' }}>{p.featuredLabel}</span>
             </div>
             <div className="w-px h-10 bg-[#292a2f]" />
             <div className="flex flex-col items-end gap-1">
               <span className="text-[32px] font-bold text-[#7bd0ff]" style={{ fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-0.04em' }}>10+</span>
-              <span className="text-[10px] text-[#849589] uppercase tracking-widest" style={{ fontFamily: 'JetBrains Mono, monospace' }}>Total Delivered</span>
+              <span className="text-[10px] text-[#849589] uppercase tracking-widest" style={{ fontFamily: 'JetBrains Mono, monospace' }}>{p.totalLabel}</span>
             </div>
           </div>
         </div>
 
         {/* Project cards */}
         <div ref={cardsRef} className="flex flex-col gap-6">
-          {projects.map((project, i) => (
+          {p.items.map((project, i) => (
             <article
               key={project.id}
               className="project-card-item group relative rounded-2xl border border-[#292a2f] overflow-hidden transition-all duration-300 hover:border-[#3b4a41]"
               style={{
-                opacity: 0,
                 background: project.accentBg,
               }}
             >
@@ -270,7 +213,7 @@ export default function PortfolioSection() {
                       className={`link-primary text-[13px] ${project.categoryColor} hover:opacity-80`}
                       id={`portfolio-case-${project.id.toLowerCase()}`}
                     >
-                      <span>Inspect Case Study</span>
+                      <span>{p.inspect}</span>
                       <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
                     </a>
                   </div>
@@ -288,10 +231,10 @@ export default function PortfolioSection() {
             </div>
             <div>
               <p className="text-[14px] font-semibold text-[#e3e1e9]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                7+ more projects available
+                {p.moreTitle}
               </p>
               <p className="text-[12px] text-[#849589]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                E-commerce stores, landing pages, dashboards, and custom business systems
+                {p.moreDesc}
               </p>
             </div>
           </div>
@@ -300,7 +243,7 @@ export default function PortfolioSection() {
             onClick={(e) => { e.preventDefault(); document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' }) }}
             className="btn-secondary text-sm flex-shrink-0"
           >
-            <span>Request Full Portfolio</span>
+            <span>{p.requestPortfolio}</span>
             <span className="material-symbols-outlined text-[16px]">mail</span>
           </a>
         </div>

@@ -1,14 +1,9 @@
 import { useState, useEffect } from 'react'
-
-const navLinks = [
-  { label: 'Home', href: '#hero' },
-  { label: 'Services', href: '#services' },
-  { label: 'Portfolio', href: '#portfolio' },
-  { label: 'About', href: '#why-us' },
-  { label: 'Contact', href: '#cta' },
-]
+import { useLanguage, LINKS } from '../i18n'
 
 export default function Header() {
+  const { text, lang, toggle } = useLanguage()
+  const navLinks = text.header.nav
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -40,17 +35,6 @@ export default function Header() {
     }
   }
 
-  const getSectionForLink = (label: string) => {
-    const map: Record<string, string> = {
-      Home: 'hero',
-      Services: 'services',
-      Portfolio: 'portfolio',
-      About: 'why-us',
-      Contact: 'cta',
-    }
-    return map[label] || ''
-  }
-
   return (
     <>
       <header
@@ -70,11 +54,10 @@ export default function Header() {
           >
             <div className="relative">
               <img
-                src="/logo.jpg"
+                src="/logo.png"
                 alt="SIXCOMPANY"
-                className="h-8 w-8 object-contain rounded-lg"
+                className="h-8 w-8 object-contain group-hover:scale-105 transition-transform"
               />
-              <div className="absolute inset-0 rounded-lg ring-1 ring-[#6dffba]/20 group-hover:ring-[#6dffba]/50 transition-all" />
             </div>
             <div className="flex flex-col leading-none">
               <span
@@ -95,10 +78,10 @@ export default function Header() {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
             {navLinks.map((link) => {
-              const isActive = activeSection === getSectionForLink(link.label)
+              const isActive = activeSection === link.href.replace('#', '')
               return (
                 <a
-                  key={link.label}
+                  key={link.href}
                   href={link.href}
                   onClick={(e) => { e.preventDefault(); scrollToSection(link.href) }}
                   className={`nav-link ${isActive ? 'active' : ''}`}
@@ -119,18 +102,35 @@ export default function Header() {
                 className="text-[10px] font-medium text-[#bacbbe] uppercase tracking-widest"
                 style={{ fontFamily: 'JetBrains Mono, monospace' }}
               >
-                Available for Q2 Projects
+                {text.header.status}
               </span>
             </div>
 
+            {/* Language toggle */}
+            <button
+              onClick={toggle}
+              className="flex items-center gap-2 px-3 py-1.5 bg-[#1a1b21] rounded border border-[#292a2f] hover:border-[#6dffba]/40 transition-colors group"
+              aria-label={text.header.langTooltip}
+              title={text.header.langTooltip}
+            >
+              <span className="material-symbols-outlined text-[15px] text-[#6dffba]">translate</span>
+              <span
+                className="text-[10px] font-bold text-[#bacbbe] uppercase tracking-wider group-hover:text-[#6dffba] transition-colors"
+                style={{ fontFamily: 'JetBrains Mono, monospace' }}
+              >
+                {lang === 'en' ? 'ID' : 'EN'}
+              </span>
+            </button>
+
             {/* CTA Button */}
             <a
-              href="#cta"
-              onClick={(e) => { e.preventDefault(); scrollToSection('#cta') }}
+              href={LINKS.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary text-sm px-4 py-2 hidden sm:inline-flex"
               id="header-cta"
             >
-              <span>Start a Project</span>
+              <span>{text.header.startProject}</span>
               <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
             </a>
 
@@ -138,7 +138,7 @@ export default function Header() {
             <button
               className="md:hidden flex flex-col gap-1.5 p-2 group"
               onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
+              aria-label={text.header.toggleMenu}
               aria-expanded={mobileOpen}
             >
               <span
@@ -172,10 +172,10 @@ export default function Header() {
           aria-label="Mobile navigation"
         >
           {navLinks.map((link) => {
-            const isActive = activeSection === getSectionForLink(link.label)
+            const isActive = activeSection === link.href.replace('#', '')
             return (
               <a
-                key={link.label}
+                key={link.href}
                 href={link.href}
                 onClick={(e) => { e.preventDefault(); scrollToSection(link.href) }}
                 className={`py-3 px-4 rounded text-[15px] font-medium transition-all duration-200 flex items-center justify-between ${
@@ -189,13 +189,22 @@ export default function Header() {
               </a>
             )
           })}
-          <div className="pt-3 mt-1 border-t border-[#1e1f25]">
+          <div className="pt-3 mt-1 border-t border-[#1e1f25] flex flex-col gap-2">
+            <button
+              onClick={toggle}
+              className="py-3 px-4 rounded text-[15px] font-medium text-[#bacbbe] hover:text-[#6dffba] hover:bg-[#1e1f25] transition-all duration-200 flex items-center justify-between"
+            >
+              <span>{lang === 'en' ? 'Bahasa Indonesia' : 'English'}</span>
+              <span className="material-symbols-outlined text-[16px]">translate</span>
+            </button>
             <a
-              href="#cta"
-              onClick={(e) => { e.preventDefault(); scrollToSection('#cta') }}
+              href={LINKS.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileOpen(false)}
               className="btn-primary w-full justify-center text-sm"
             >
-              <span>Start a Project</span>
+              <span>{text.header.startProject}</span>
               <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
             </a>
           </div>

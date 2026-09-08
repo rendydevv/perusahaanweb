@@ -1,7 +1,10 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
+import { useLanguage, LINKS } from '../i18n'
 
 export default function HeroSection() {
+  const { text } = useLanguage()
+  const h = text.hero
   const heroRef = useRef<HTMLDivElement>(null)
   const headlineRef = useRef<HTMLHeadingElement>(null)
   const subRef = useRef<HTMLParagraphElement>(null)
@@ -64,13 +67,13 @@ export default function HeroSection() {
               className="text-[11px] font-medium text-[#bacbbe] uppercase tracking-wider"
               style={{ fontFamily: 'JetBrains Mono, monospace' }}
             >
-              // SYSTEM INTEGRITY: <span className="text-[#6dffba] font-semibold">OPTIMAL</span> — 2-ENGINEER DEV STUDIO
+              {h.chipPrefix}<span className="text-[#6dffba] font-semibold">{h.chipStatus}</span>{h.chipSuffix}
             </span>
           </div>
           <div className="hidden md:flex items-center gap-2 text-[#849589] text-[10px] font-medium uppercase tracking-widest" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-            <span>LATENCY: 14MS</span>
+            <span>{h.latency}</span>
             <span>·</span>
-            <span>BUILD: 2026.9.8</span>
+            <span>{h.build}</span>
           </div>
         </div>
 
@@ -78,14 +81,14 @@ export default function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* Left: headline & CTAs */}
           <div className="lg:col-span-7 flex flex-col gap-6">
-            <h1
+<h1
               ref={headlineRef}
               className="text-[clamp(36px,6vw,56px)] font-bold leading-[1.1] tracking-[-0.04em] text-[#e3e1e9]"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
             >
-              We Build Digital{' '}
+              {h.headlineA}
               <span className="text-[#6dffba] relative">
-                Solutions
+                {h.headlineB}
                 <svg
                   className="absolute -bottom-1 left-0 w-full"
                   height="3"
@@ -97,7 +100,7 @@ export default function HeroSection() {
                   <path d="M0 1.5 Q50 0 100 1.5" stroke="#6dffba" strokeWidth="2" strokeLinecap="round" opacity="0.5" />
                 </svg>
               </span>
-              {' '}That Work.
+              {h.headlineC}
             </h1>
 
             <p
@@ -105,19 +108,19 @@ export default function HeroSection() {
               className="text-[16px] leading-[1.7] text-[#bacbbe] max-w-xl"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
             >
-              Websites, web applications, business systems, automation, and AI-powered
-              solutions — engineered with precision around your exact operational needs.
+              {h.sub}
             </p>
 
             {/* CTA Buttons */}
             <div ref={ctaRef} className="flex flex-wrap items-center gap-4 pt-2">
               <a
-                href="#cta"
-                onClick={(e) => { e.preventDefault(); document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' }) }}
+                href={LINKS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary"
                 id="hero-start-project"
               >
-                <span>Start a Project</span>
+                <span>{h.startProject}</span>
                 <span className="material-symbols-outlined text-[18px]">terminal</span>
               </a>
               <a
@@ -126,33 +129,14 @@ export default function HeroSection() {
                 className="btn-secondary"
                 id="hero-view-work"
               >
-                <span>View Our Work</span>
+                <span>{h.viewWork}</span>
                 <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
               </a>
             </div>
 
             {/* Quick metrics */}
             <div ref={metricsRef} className="grid grid-cols-3 gap-4 pt-4">
-              {[
-                {
-                  label: 'Zero Bloat',
-                  value: '100% Custom',
-                  sub: 'No generic templates',
-                  color: 'text-[#e3e1e9]',
-                },
-                {
-                  label: 'Communication',
-                  value: 'Direct Eng',
-                  sub: 'No account managers',
-                  color: 'text-[#6dffba]',
-                },
-                {
-                  label: 'Architecture',
-                  value: '< 100ms',
-                  sub: 'P99 response target',
-                  color: 'text-[#7bd0ff]',
-                },
-              ].map((m) => (
+              {h.metrics.map((m) => (
                 <div
                   key={m.label}
                   className="flex flex-col gap-1 p-3 bg-[#0d0e13] rounded-lg border border-[#1e1f25] hover:border-[#3b4a41] transition-colors"
@@ -190,14 +174,14 @@ export default function HeroSection() {
                     className="text-[10px] font-medium text-[#849589] uppercase ml-2 tracking-wider"
                     style={{ fontFamily: 'JetBrains Mono, monospace' }}
                   >
-                    topology_preview.sys
+                    {h.terminal.title}
                   </span>
                 </div>
                 <span
                   className="text-[10px] font-bold text-[#6dffba] bg-[#6dffba]/10 px-2 py-1 rounded tracking-wider"
                   style={{ fontFamily: 'JetBrains Mono, monospace' }}
                 >
-                  LIVE PING
+                  {h.terminal.live}
                 </span>
               </div>
 
@@ -213,8 +197,8 @@ export default function HeroSection() {
                       <span className="material-symbols-outlined text-[18px]">dns</span>
                     </div>
                     <div>
-                      <p className="text-[14px] font-semibold text-[#e3e1e9]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>API Gateway & Edge</p>
-                      <p className="text-[10px] text-[#849589] tracking-wider" style={{ fontFamily: 'JetBrains Mono, monospace' }}>Global CDN Routing · Anycast</p>
+                      <p className="text-[14px] font-semibold text-[#e3e1e9]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{h.terminal.node1.title}</p>
+                      <p className="text-[10px] text-[#849589] tracking-wider" style={{ fontFamily: 'JetBrains Mono, monospace' }}>{h.terminal.node1.sub}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -226,28 +210,13 @@ export default function HeroSection() {
                 {/* Connector */}
                 <div className="flex items-center justify-center py-1">
                   <span className="text-[11px] text-[#3b4a41] tracking-widest" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-                    │ [gRPC / TLS 1.3] │
+                    {h.terminal.connector}
                   </span>
                 </div>
 
                 {/* Node 2 split */}
                 <div className="grid grid-cols-2 gap-3">
-                  {[
-                    {
-                      label: 'Frontend UI Node',
-                      name: 'Hydrated SPA/SSR',
-                      detail: 'Next.js · Vite · Island',
-                      color: 'text-[#7bd0ff]',
-                      icon: 'devices',
-                    },
-                    {
-                      label: 'Autonomous Worker',
-                      name: 'Agent Orchestrator',
-                      detail: 'Async Queue · LLM Bus',
-                      color: 'text-[#ffddb8]',
-                      icon: 'smart_toy',
-                    },
-                  ].map((node) => (
+                  {h.terminal.nodes2.map((node) => (
                     <div key={node.label} className="p-3 bg-[#1a1b21] rounded-lg border border-[#1e1f25] hover:border-[#3b4a41] transition-colors flex flex-col gap-1">
                       <div className="flex items-center justify-between">
                         <span className={`text-[9px] font-bold uppercase tracking-widest ${node.color}`} style={{ fontFamily: 'JetBrains Mono, monospace' }}>
@@ -268,8 +237,8 @@ export default function HeroSection() {
                       <span className="material-symbols-outlined text-[18px]">database</span>
                     </div>
                     <div>
-                      <p className="text-[14px] font-semibold text-[#e3e1e9]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Distributed Cluster</p>
-                      <p className="text-[10px] text-[#849589] tracking-wider" style={{ fontFamily: 'JetBrains Mono, monospace' }}>PostgreSQL + Redis Cache Layer</p>
+                      <p className="text-[14px] font-semibold text-[#e3e1e9]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{h.terminal.node3.title}</p>
+                      <p className="text-[10px] text-[#849589] tracking-wider" style={{ fontFamily: 'JetBrains Mono, monospace' }}>{h.terminal.node3.sub}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -281,8 +250,8 @@ export default function HeroSection() {
                 {/* Code fragment */}
                 <div className="p-3 bg-[#1a1b21] rounded-lg border border-[#1e1f25]">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] text-[#849589]" style={{ fontFamily: 'JetBrains Mono, monospace' }}>worker_thread.ts</span>
-                    <span className="text-[9px] font-bold text-[#6dffba] uppercase tracking-wider" style={{ fontFamily: 'JetBrains Mono, monospace' }}>Compiled</span>
+                    <span className="text-[10px] text-[#849589]" style={{ fontFamily: 'JetBrains Mono, monospace' }}>{h.terminal.codeTitle}</span>
+                    <span className="text-[9px] font-bold text-[#6dffba] uppercase tracking-wider" style={{ fontFamily: 'JetBrains Mono, monospace' }}>{h.terminal.compiled}</span>
                   </div>
                   <pre className="text-[11px] leading-relaxed overflow-x-auto" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
                     <code>

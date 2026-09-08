@@ -1,28 +1,13 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLanguage } from '../i18n'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const steps = [
-  { num: '01', title: 'Discover', desc: 'Understand the business models, target audience, core bottlenecks, and technical requirements.', icon: 'search' },
-  { num: '02', title: 'Plan', desc: 'Define system architecture, tech stack, data schemas, milestones, and scope boundaries.', icon: 'architecture' },
-  { num: '03', title: 'Design', desc: 'Create user flows, ergonomic interactive components, wireframes, and design token system.', icon: 'palette' },
-  { num: '04', title: 'Build', desc: 'Implement frontend components, backend endpoints, database models, integrations, and logic.', icon: 'code' },
-  { num: '05', title: 'Test', desc: 'Unit test verification, responsiveness checks, load testing, security scans, and audit pass.', icon: 'bug_report' },
-  { num: '06', title: 'Deploy', desc: 'Production DNS switch, continuous CI/CD pipelines, SSL provisioning, and live launch review.', icon: 'rocket_launch' },
-  { num: '07', title: 'Maintain', desc: 'Uptime alerts, dependency patches, ongoing feature additions, and direct engineering guidance.', icon: 'published_with_changes' },
-]
-
-const deliverables = [
-  { label: 'Source Code', icon: 'folder_zip' },
-  { label: 'Documentation', icon: 'description' },
-  { label: 'Deployment', icon: 'cloud_upload' },
-  { label: 'Training', icon: 'school' },
-  { label: 'Post-launch Support', icon: 'support_agent' },
-]
-
 export default function ProcessSection() {
+  const { text } = useLanguage()
+  const pr = text.process
   const sectionRef = useRef<HTMLElement>(null)
   const stepsRef = useRef<HTMLDivElement>(null)
 
@@ -31,9 +16,9 @@ export default function ProcessSection() {
     mm.add('(prefers-reduced-motion: no-preference)', () => {
       if (!sectionRef.current || !stepsRef.current) return
       const items = stepsRef.current.querySelectorAll('.step-item')
-      gsap.from(items, {
+      gsap.set(items, { autoAlpha: 0 })
+      gsap.fromTo(items, {
         y: 30,
-        autoAlpha: 0,
         duration: 0.45,
         stagger: 0.07,
         ease: 'power2.out',
@@ -42,11 +27,14 @@ export default function ProcessSection() {
           start: 'top 70%',
           once: true,
         },
+      }, {
+        y: 0,
+        autoAlpha: 1,
       })
 
-      gsap.from('.process-right', {
+      gsap.set('.process-right', { autoAlpha: 0 })
+      gsap.fromTo('.process-right', {
         x: 40,
-        autoAlpha: 0,
         duration: 0.6,
         ease: 'power3.out',
         scrollTrigger: {
@@ -54,6 +42,9 @@ export default function ProcessSection() {
           start: 'top 75%',
           once: true,
         },
+      }, {
+        x: 0,
+        autoAlpha: 1,
       })
     })
     return () => mm.revert()
@@ -76,34 +67,33 @@ export default function ProcessSection() {
             <div className="flex flex-col gap-4 max-w-2xl">
               <div className="section-label">
                 <span className="w-2 h-2 rounded-full bg-[#00e599]" />
-                <span>Engineering Lifecycle</span>
+                <span>{pr.label}</span>
               </div>
               <h2
                 id="process-heading"
                 className="text-[clamp(28px,4vw,40px)] font-bold tracking-tight text-[#e3e1e9]"
                 style={{ fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-0.03em' }}
               >
-                From Idea to Production
+                {pr.title}
               </h2>
               <p className="text-[16px] text-[#bacbbe] leading-relaxed">
-                Our systematic 7-stage delivery pipeline guarantees high velocity, technical clarity, and zero surprise deliverables.
+                {pr.desc}
               </p>
             </div>
 
             {/* Steps — vertical list on mobile, 7-col grid on desktop */}
             <div ref={stepsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
-              {steps.map((step, i) => (
+              {pr.steps.map((step, i) => (
                 <div
                   key={step.num}
                   className="step-item relative flex items-start gap-4 p-4 bg-[#1a1b21] rounded-lg border border-[#1e1f25] hover:border-[#3b4a41] hover:bg-[#1e1f25] transition-all group"
-                  style={{ opacity: 0 }}
                 >
                   {/* Step number + connector line */}
                   <div className="flex flex-col items-center flex-shrink-0">
                     <div className={`w-9 h-9 rounded-lg flex items-center justify-center text-[#6dffba] bg-[#0d0e13] border ${i === 0 ? 'border-[#6dffba]/40' : 'border-[#292a2f]'} group-hover:border-[#6dffba]/30 transition-colors`}>
                       <span className="material-symbols-outlined text-[16px]">{step.icon}</span>
                     </div>
-                    {i < steps.length - 1 && (
+                    {i < pr.steps.length - 1 && (
                       <div className="hidden lg:block w-px flex-1 min-h-[12px] my-1 bg-[#292a2f] group-hover:bg-[#3b4a41] transition-colors" />
                     )}
                   </div>
@@ -132,7 +122,7 @@ export default function ProcessSection() {
                   {i === 0 && (
                     <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-[#6dffba]/10 px-2 py-1 rounded">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#6dffba] animate-pulse" />
-                      <span className="text-[9px] font-bold text-[#6dffba] uppercase tracking-wider" style={{ fontFamily: 'JetBrains Mono, monospace' }}>Active</span>
+                      <span className="text-[9px] font-bold text-[#6dffba] uppercase tracking-wider" style={{ fontFamily: 'JetBrains Mono, monospace' }}>{pr.active}</span>
                     </div>
                   )}
                 </div>
@@ -141,17 +131,17 @@ export default function ProcessSection() {
           </div>
 
           {/* Right: Deliverables + timeline visual */}
-          <div className="process-right lg:col-span-4 flex flex-col gap-6" style={{ opacity: 0 }}>
+          <div className="process-right lg:col-span-4 flex flex-col gap-6">
             {/* What you get */}
             <div className="p-6 bg-[#1a1b21] rounded-xl border border-[#292a2f] flex flex-col gap-5">
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-[#6dffba] text-[18px]">inventory_2</span>
                 <h3 className="text-[14px] font-semibold text-[#e3e1e9]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                  What You Get
+                  {pr.whatYouGet}
                 </h3>
               </div>
               <div className="flex flex-col gap-3">
-                {deliverables.map((d) => (
+                {pr.deliverables.map((d) => (
                   <div key={d.label} className="flex items-center gap-3">
                     <div className="w-7 h-7 rounded bg-[#6dffba]/10 flex items-center justify-center flex-shrink-0">
                       <span className="material-symbols-outlined text-[#6dffba] text-[14px]">{d.icon}</span>
@@ -170,15 +160,11 @@ export default function ProcessSection() {
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-[#7bd0ff] text-[18px]">schedule</span>
                 <h3 className="text-[14px] font-semibold text-[#e3e1e9]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                  Typical Timeline
+                  {pr.timelineTitle}
                 </h3>
               </div>
               <div className="flex flex-col gap-3">
-                {[
-                  { type: 'Landing Page', time: '3–7 days', color: '#6dffba', pct: 20 },
-                  { type: 'Web App / DMS', time: '3–6 weeks', color: '#7bd0ff', pct: 55 },
-                  { type: 'Complex System', time: '2–4 months', color: '#ffddb8', pct: 100 },
-                ].map((t) => (
+                {pr.timeline.map((t) => (
                   <div key={t.type} className="flex flex-col gap-1.5">
                     <div className="flex items-center justify-between">
                       <span className="text-[12px] text-[#e3e1e9]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{t.type}</span>
@@ -198,14 +184,14 @@ export default function ProcessSection() {
             {/* Quick start CTA */}
             <div className="p-5 rounded-xl border border-dashed border-[#3b4a41] flex flex-col gap-3 text-center">
               <p className="text-[13px] text-[#bacbbe]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                Ready to start? We typically respond within 24 hours.
+                {pr.readyText}
               </p>
               <a
                 href="#cta"
                 onClick={(e) => { e.preventDefault(); document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' }) }}
                 className="btn-primary justify-center text-sm"
               >
-                Get a Free Estimate
+                {pr.cta}
                 <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
               </a>
             </div>

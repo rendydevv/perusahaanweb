@@ -1,67 +1,13 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLanguage } from '../i18n'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const services = [
-  {
-    id: 'SYS.01',
-    icon: 'language',
-    title: 'Web Development',
-    desc: 'Corporate digital identities, high-converting product showcases, responsive portals, and custom web apps built without bloat.',
-    tags: ['Next.js', 'Vite', 'Tailwind'],
-    color: 'text-[#6dffba]',
-    glow: 'rgba(109,255,186,0.1)',
-  },
-  {
-    id: 'SYS.02',
-    icon: 'shopping_cart',
-    title: 'E-Commerce Architecture',
-    desc: 'High-velocity storefronts, localized product inventory engines, frictionless checkout pipelines, and custom payment handling.',
-    tags: ['Stripe Engine', 'Inventory Sync', 'Cart State'],
-    color: 'text-[#7bd0ff]',
-    glow: 'rgba(123,208,255,0.1)',
-  },
-  {
-    id: 'SYS.03',
-    icon: 'developer_board',
-    title: 'Custom Business Systems',
-    desc: 'Internal mission-critical dashboards, DMS (Document Management), NMS (Network Systems), and proprietary client operation hubs.',
-    tags: ['DMS / NMS', 'Admin Ops', 'Role RBAC'],
-    color: 'text-[#6dffba]',
-    glow: 'rgba(109,255,186,0.1)',
-  },
-  {
-    id: 'SYS.04',
-    icon: 'neurology',
-    title: 'AI & Automation',
-    desc: 'Domain-specific LLM integrations, autonomous multi-step agents, document semantic search, and recurring task automation pipelines.',
-    tags: ['AI Agents', 'Vector RAG', 'Pipelines'],
-    color: 'text-[#ffb95f]',
-    glow: 'rgba(255,185,95,0.1)',
-  },
-  {
-    id: 'SYS.05',
-    icon: 'hub',
-    title: 'API & System Integration',
-    desc: 'Connecting modern interfaces with legacy databases, ERP systems, Salesforce/HubSpot CRMs, custom webhooks, and third-party SaaS.',
-    tags: ['REST / GraphQL', 'Webhooks', 'ETL Flow'],
-    color: 'text-[#7bd0ff]',
-    glow: 'rgba(123,208,255,0.1)',
-  },
-  {
-    id: 'SYS.06',
-    icon: 'view_quilt',
-    title: 'UI/UX Systems Design',
-    desc: 'Systematic design tokens, deterministic components, dark-mode first design languages, and ergonomics created specifically for humans.',
-    tags: ['Figma Tokens', 'Design Systems', 'A11y'],
-    color: 'text-[#6dffba]',
-    glow: 'rgba(109,255,186,0.1)',
-  },
-]
-
 export default function ServicesSection() {
+  const { text } = useLanguage()
+  const s = text.services
   const sectionRef = useRef<HTMLElement>(null)
   const cardsRef = useRef<HTMLDivElement>(null)
 
@@ -72,10 +18,11 @@ export default function ServicesSection() {
       if (!sectionRef.current || !cardsRef.current) return
 
       const cards = cardsRef.current.querySelectorAll('.service-card-item')
+      gsap.set(cards, { autoAlpha: 0, y: 30 })
 
-      gsap.from(cards, {
-        y: 40,
-        autoAlpha: 0,
+      gsap.to(cards, {
+        y: 0,
+        autoAlpha: 1,
         duration: 0.5,
         stagger: { each: 0.08, from: 'start' },
         ease: 'power2.out',
@@ -106,18 +53,17 @@ export default function ServicesSection() {
           <div className="flex flex-col gap-3 max-w-2xl">
             <div className="section-label">
               <span className="w-2 h-2 rounded-full bg-[#00e599]" />
-              <span>Capabilities Spectrum</span>
+              <span>{s.label}</span>
             </div>
             <h2
               id="services-heading"
               className="text-[clamp(28px,4vw,40px)] font-bold tracking-tight text-[#e3e1e9]"
               style={{ fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-0.03em' }}
             >
-              What We Build
+              {s.title}
             </h2>
             <p className="text-[16px] text-[#bacbbe] leading-relaxed" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-              From focused business websites to complex digital operating systems, we engineer
-              resilient software around the specific way your business operates.
+              {s.desc}
             </p>
           </div>
           <a
@@ -126,18 +72,17 @@ export default function ServicesSection() {
             className="link-primary flex-shrink-0"
             id="services-view-all"
           >
-            <span>View All Services</span>
+            <span>{s.cta}</span>
             <span className="material-symbols-outlined text-[20px]">arrow_right_alt</span>
           </a>
         </div>
 
         {/* Services grid */}
         <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {services.map((svc) => (
+          {s.items.map((svc) => (
             <div
               key={svc.id}
               className="service-card service-card-item p-6 bg-[#1e1f25] rounded-xl border border-[#292a2f] flex flex-col justify-between group cursor-default"
-              style={{ opacity: 0 }}
             >
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">

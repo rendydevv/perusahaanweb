@@ -1,49 +1,13 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLanguage } from '../i18n'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const domains = [
-  {
-    title: 'Frontend Systems',
-    icon: 'layers',
-    color: 'text-[#7bd0ff]',
-    tags: ['React', 'Vite', 'TypeScript', 'JavaScript (ES6+)', 'Tailwind CSS'],
-  },
-  {
-    title: 'Backend & Compute',
-    icon: 'terminal',
-    color: 'text-[#6dffba]',
-    tags: ['Laravel', 'Django', 'PHP 8.3+', 'Python', 'Node.js'],
-  },
-  {
-    title: 'Database & Caching',
-    icon: 'storage',
-    color: 'text-[#ffbc68]',
-    tags: ['PostgreSQL', 'MySQL', 'SQLite', 'Redis Cache'],
-  },
-  {
-    title: 'AI & Cognitive Engines',
-    icon: 'smart_toy',
-    color: 'text-[#6dffba]',
-    tags: ['LLM Integration', 'AI APIs', 'AI Agents', 'Autonomous Workflows'],
-  },
-  {
-    title: 'Infrastructure & DevOps',
-    icon: 'cloud',
-    color: 'text-[#7bd0ff]',
-    tags: ['Linux / Ubuntu', 'Docker Containers', 'Cloudflare WAF', 'CI/CD Pipelines'],
-  },
-  {
-    title: 'Integrations & Protocols',
-    icon: 'sync',
-    color: 'text-[#ffbc68]',
-    tags: ['RESTful APIs', 'Webhooks', 'Payment Gateways', 'Third-Party SaaS'],
-  },
-]
-
 export default function TechStackSection() {
+  const { text } = useLanguage()
+  const t = text.tech
   const sectionRef = useRef<HTMLElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
 
@@ -52,9 +16,10 @@ export default function TechStackSection() {
     mm.add('(prefers-reduced-motion: no-preference)', () => {
       if (!sectionRef.current || !gridRef.current) return
       const cards = gridRef.current.querySelectorAll('.tech-card')
-      gsap.from(cards, {
-        y: 30,
-        autoAlpha: 0,
+      gsap.set(cards, { autoAlpha: 0, y: 20 })
+      gsap.to(cards, {
+        y: 0,
+        autoAlpha: 1,
         duration: 0.5,
         stagger: { each: 0.08 },
         ease: 'power2.out',
@@ -81,27 +46,26 @@ export default function TechStackSection() {
         <div className="flex flex-col gap-4 max-w-2xl mb-14">
           <div className="section-label">
             <span className="w-2 h-2 rounded-full bg-[#00e599]" />
-            <span>Stack Discipline</span>
+            <span>{t.label}</span>
           </div>
           <h2
             id="tech-heading"
             className="text-[clamp(28px,4vw,40px)] font-bold tracking-tight text-[#e3e1e9]"
             style={{ fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-0.03em' }}
           >
-            Built With Modern Technology
+            {t.title}
           </h2>
           <p className="text-[16px] text-[#bacbbe] leading-relaxed">
-            We leverage modern, battle-tested tools selected for deterministic reliability, speed, and long-term maintainability.
+            {t.desc}
           </p>
         </div>
 
         {/* Domain grid */}
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {domains.map((domain) => (
+          {t.items.map((domain) => (
             <div
               key={domain.title}
               className="tech-card p-6 bg-[#1e1f25] rounded-xl border border-[#292a2f] flex flex-col gap-5 hover:border-[#3b4a41] transition-all group"
-              style={{ opacity: 0 }}
             >
               <div className="flex items-center justify-between">
                 <h3
