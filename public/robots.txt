@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sixcompany.studio/sitemap.xml
+Sitemap: https://perusahaanweb.vercel.app/sitemap.xml
