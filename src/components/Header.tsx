@@ -56,7 +56,7 @@ export default function Header() {
               <img
                 src="/logo.png"
                 alt="SIXCOMPANY"
-                className="h-8 w-8 object-contain group-hover:scale-105 transition-transform"
+                className="h-8 w-8 object-cover rounded-full group-hover:scale-105 transition-transform"
               />
             </div>
             <div className="flex flex-col leading-none">

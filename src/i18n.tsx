@@ -7,6 +7,7 @@ export const LINKS = {
   email: 'rendyseftia0709@gmail.com',
   github: 'https://github.com/rendydevv',
   instagram: 'https://www.instagram.com/rendyseftiaa_',
+  linkedin: 'https://www.linkedin.com/in/rendyseftiam/',
   whatsapp: 'https://wa.me/6282154956553',
   whatsappDisplay: '0821-5495-6553',
 }
@@ -255,6 +256,7 @@ const en = {
       },
     ],
     inspect: 'Inspect Case Study',
+    inspectMessage: 'Hi, could I see the full portfolio for the {project} project?',
     moreTitle: '7+ more projects available',
     moreDesc: 'E-commerce stores, landing pages, dashboards, and custom business systems',
     requestPortfolio: 'Request Full Portfolio',
@@ -588,6 +590,7 @@ const id: typeof en = {
       },
     ],
     inspect: 'Lihat Studi Kasus',
+    inspectMessage: 'pak apakah saya bisa mengetahui portofolio full untuk proyek {project}?',
     moreTitle: '7+ proyek lainnya tersedia',
     moreDesc: 'Toko e-commerce, landing page, dashboard, dan sistem bisnis kustom',
     requestPortfolio: 'Minta Portofolio Lengkap',

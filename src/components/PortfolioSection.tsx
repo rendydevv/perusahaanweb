@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useLanguage } from '../i18n'
+import { useLanguage, LINKS } from '../i18n'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -209,7 +209,9 @@ export default function PortfolioSection() {
                       {project.id}
                     </span>
                     <a
-                      href="#"
+                      href={`${LINKS.whatsapp}?text=${encodeURIComponent(p.inspectMessage.replace('{project}', project.title))}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className={`link-primary text-[13px] ${project.categoryColor} hover:opacity-80`}
                       id={`portfolio-case-${project.id.toLowerCase()}`}
                     >
