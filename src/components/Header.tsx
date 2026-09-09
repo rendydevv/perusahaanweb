@@ -52,11 +52,11 @@ export default function Header() {
             className="flex items-center gap-3 group flex-shrink-0"
             aria-label="SIXCOMPANY Home"
           >
-            <div className="relative">
+            <div className="h-8 w-8 rounded-full overflow-hidden bg-[#1e1f25] ring-1 ring-[#292a2f] group-hover:scale-105 transition-transform flex-shrink-0">
               <img
                 src="/logo.png"
                 alt="SIXCOMPANY"
-                className="h-8 w-8 object-cover rounded-full group-hover:scale-105 transition-transform"
+                className="h-full w-full object-cover"
               />
             </div>
             <div className="flex flex-col leading-none">

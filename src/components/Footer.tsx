@@ -21,11 +21,11 @@ export default function Footer() {
               className="flex items-center gap-3 group w-fit"
               aria-label="SIXCOMPANY Home"
             >
-              <div className="relative">
+              <div className="h-8 w-8 rounded-full overflow-hidden bg-[#1a1b21] ring-1 ring-[#292a2f] opacity-90 group-hover:opacity-100 transition-opacity flex-shrink-0">
                 <img
                   src="/logo.png"
                   alt="SIXCOMPANY"
-                  className="h-8 w-8 object-cover rounded-full opacity-90 group-hover:opacity-100 transition-opacity"
+                  className="h-full w-full object-cover"
                 />
               </div>
               <div className="flex flex-col leading-none">
