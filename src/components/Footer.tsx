@@ -25,7 +25,7 @@ export default function Footer() {
                 <img
                   src="/logo.png"
                   alt="SIXCOMPANY"
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-contain"
                 />
               </div>
               <div className="flex flex-col leading-none">
