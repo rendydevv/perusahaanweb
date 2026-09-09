@@ -50,12 +50,12 @@ export default function Header() {
             href="#hero"
             onClick={(e) => { e.preventDefault(); scrollToSection('#hero') }}
             className="flex items-center gap-3 group flex-shrink-0"
-            aria-label="SIXCOMPANY Home"
+            aria-label="RSM Technologies Home"
           >
             <div className="h-8 w-8 rounded-full overflow-hidden bg-[#1e1f25] ring-1 ring-[#292a2f] group-hover:scale-105 transition-transform flex-shrink-0">
               <img
                 src="/logo.png"
-                alt="SIXCOMPANY"
+                alt="RSM Technologies"
                 className="h-full w-full object-contain"
               />
             </div>
@@ -64,13 +64,13 @@ export default function Header() {
                 className="font-bold text-[15px] tracking-wider text-[#e3e1e9] uppercase"
                 style={{ fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '0.08em' }}
               >
-                SIX<span className="text-[#6dffba]">COMPANY</span>
+                RSM<span className="text-[#6dffba]">TECH</span>
               </span>
               <span
                 className="text-[9px] tracking-widest text-[#849589] uppercase"
                 style={{ fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.12em' }}
               >
-                STUDIO // ENG
+                TECHNOLOGIES
               </span>
             </div>
           </a>

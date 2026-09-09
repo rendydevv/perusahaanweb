@@ -322,7 +322,7 @@ const en = {
   footer: {
     tagline: 'STUDIO // ENG',
     desc: 'A boutique technology studio engineering websites, custom digital platforms, and resilient systems.',
-    copyright: '© 2026 sixcompany. All rights reserved.',
+    copyright: '© 2026 RSM Technologies. All rights reserved.',
     navTitle: 'Navigation',
     nav: [
       { label: 'Home', href: '#hero' },
@@ -656,7 +656,7 @@ const id: typeof en = {
   footer: {
     tagline: 'STUDIO // ENG',
     desc: 'Studio teknologi butik yang merekayasa website, platform digital kustom, dan sistem yang tangguh.',
-    copyright: '© 2026 sixcompany. Hak cipta dilindungi.',
+    copyright: '© 2026 RSM Technologies. Hak cipta dilindungi.',
     navTitle: 'Navigasi',
     nav: [
       { label: 'Beranda', href: '#hero' },

@@ -1,8 +1,8 @@
-# SIXCOMPANY — Digital Studio & Engineering
+# RSM Technologies — Digital Studio & Engineering
 
 > **We Build Digital Solutions That Work.**
 
-A premium, high-performance landing page for **SIXCOMPANY** — a boutique technology studio based in Indonesia that engineers websites, web applications, e-commerce platforms, custom business systems, and AI-powered automation.
+A premium, high-performance landing page for **RSM Technologies** — a boutique technology studio based in Indonesia that engineers websites, web applications, e-commerce platforms, custom business systems, and AI-powered automation.
 
 [![Live Site](https://img.shields.io/badge/Live-Site-00e297?style=for-the-badge&logo=vercel&logoColor=white)](https://perusahaanweb.vercel.app)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
@@ -224,7 +224,7 @@ visitor traffic passes through Cloudflare first (proxied), so DDoS attacks,
 malicious bots, and suspicious access are blocked before reaching the origin
 server. SSL/HTTPS is automatic.
 
-> ⚠️ **Prerequisite:** you must own your **own domain** (e.g. `sixcompany.com`).
+> ⚠️ **Prerequisite:** you must own your **own domain** (e.g. `rsmtech.com`).
 > The free `*.vercel.app` domain **cannot** be fronted by Cloudflare. Buy a
 > domain at Niagahoster / GoDaddy / Namecheap (from ~Rp100k/yr).
 
@@ -296,4 +296,4 @@ passes before submitting.
 
 Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
 
-© 2026 **SIXCOMPANY** — We Build Digital Solutions That Work.
+© 2026 **RSM Technologies** — We Build Digital Solutions That Work.
