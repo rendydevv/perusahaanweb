@@ -127,6 +127,43 @@ docker run -p 80:80 ghcr.io/<your-username>/perusahaanweb:latest
 
 ---
 
+## ☁️ Cloudflare Workers (Static Assets)
+
+Situs ini sudah dikonfigurasi untuk di-hosting di **Cloudflare Workers**
+(Static Assets, gratis) — global CDN + SSL otomatis. Setiap `git push` ke
+`main` akan otomatis build & deploy via GitHub Actions.
+
+### ✅ Yang sudah saya siapkan
+
+- `wrangler.jsonc` — konfigurasi deploy (folder `dist/`, SPA routing).
+- `.github/workflows/deploy-cloudflare.yml` — CI/CD: `npm ci` → `npm run build` → `npx wrangler deploy`.
+
+### 🔧 Yang harus kamu lakukan sekali (kurang lebih 10 menit)
+
+1. **Buat akun Cloudflare** di https://dash.cloudflare.com (pilih plan **Free**).
+2. **Ambil Account ID**:
+   - Dashboard → pilih situs/domain kamu → halaman beranda → cari **Account ID** di kanan bawah (atau: icon profil → **My Profile**).
+3. **Buat API Token** (izin deploy Workers):
+   - **My Profile** → **API Tokens** → **Create Token**.
+   - Pilih template **"Edit Cloudflare Workers"** → **Continue** → **Create Token**.
+   - ⚠️ Salin token-nya sekarang (hanya ditampilkan sekali).
+4. **Tambah 2 GitHub Secrets** di repo ini:
+   - GitHub → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**:
+     - `CLOUDFLARE_API_TOKEN` → isi token dari langkah 3.
+     - `CLOUDFLARE_ACCOUNT_ID` → isi Account ID dari langkah 2.
+5. **Deploy**: push ke `main`, atau jalankan manual dari GitHub → **Actions** → **Deploy to Cloudflare** → **Run workflow**.
+
+Setelah deploy, situs live di `https://perusahaanweb.<subdomain-kamu>.workers.dev`
+
+### 🌐 Pakai domain sendiri (disarankan)
+
+1. **Tambahkan domain kamu ke Cloudflare**: Cloudflare dashboard → **Add a site** → ikuti langkah, lalu ganti **nameserver** domain di tempat kamu beli domain (Niagahoster/GoDaddy/dll) mengikuti 2 nameserver yang Cloudflare kasih. Tunggu beberapa jam sampai status **Active**.
+2. **Daftarkan worker ke domain**: **Workers & Pages** → pilih **perusahaanweb** → **Settings** → **Domains & Routes** → **Add custom domain** → masukkan `[domain-kamu]` dan `www.[domain-kamu]`.
+   - SSL & DNS otomatis dibuat (gratis, Universal SSL).
+3. (Opsional) Ganti semua teks `perusahaanweb.vercel.app` di `index.html` dengan domain asli kamu.
+
+---
+
 ## 📄 License
 
 © 2026 SIXCOMPANY. All rights reserved.

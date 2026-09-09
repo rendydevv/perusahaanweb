@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "cloudflare": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/cloudflare/SKILL.md",
+      "computedHash": "61b6c4b68c6b155302edeb63779d39600d88a0029ef2bb0667aedc07c9732ba4"
+    },
+    "red-team": {
+      "source": "alirezarezvani/claude-skills",
+      "sourceType": "github",
+      "skillPath": "engineering-team/skills/red-team/SKILL.md",
+      "computedHash": "ad390df3169d240445839ec5967ed6d91664fec609065fbeee9da81473ae917e"
+    }
+  }
+}
