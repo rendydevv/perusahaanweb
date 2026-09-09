@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 512 512">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#241240"/>
+      <stop offset="0" stop-color="#0d2f22"/>
       <stop offset="1" stop-color="#121318"/>
     </linearGradient>
     <linearGradient id="rgrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#7e14ff"/>
-      <stop offset="0.55" stop-color="#863bff"/>
-      <stop offset="1" stop-color="#b064ff"/>
+      <stop offset="0" stop-color="#2ee6a0"/>
+      <stop offset="0.55" stop-color="#3ef0ac"/>
+      <stop offset="1" stop-color="#6dffba"/>
     </linearGradient>
     <linearGradient id="rgrad2" x1="1" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#6dffba"/>
@@ -17,7 +17,7 @@
   <rect width="512" height="512" rx="118" fill="url(#bg)"/>
   <path fill="url(#rgrad)" d="M178 132 h62 a20 20 0 0 1 20 20 v232 a20 20 0 0 1 -20 20 h-62 a20 20 0 0 1 -20 -20 V152 a20 20 0 0 1 20 -20 z"/>
   <path fill="url(#rgrad)" d="M240 132 h70 a84 84 0 0 1 0 168 h-70 a20 20 0 0 1 -20 -20 V152 a20 20 0 0 1 20 -20 z"/>
-  <path fill="#17131f" d="M248 168 h42 a48 48 0 0 1 0 96 h-42 z" opacity="0.88"/>
+  <path fill="#121318" d="M248 168 h42 a48 48 0 0 1 0 96 h-42 z" opacity="0.88"/>
   <path fill="url(#rgrad)" d="M232 308 l-22 88 a20 20 0 0 1 -19 14 h-17 a20 20 0 0 1 -19 -26 l30 -94 a20 20 0 0 1 47 18 z"/>
   <rect x="178" y="398" width="66" height="10" rx="5" fill="url(#rgrad2)"/>
 </svg>
