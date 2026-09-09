@@ -1,23 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 512 512">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0d2f22"/>
+      <stop offset="0" stop-color="#0d3023"/>
       <stop offset="1" stop-color="#121318"/>
     </linearGradient>
-    <linearGradient id="rgrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2ee6a0"/>
-      <stop offset="0.55" stop-color="#3ef0ac"/>
-      <stop offset="1" stop-color="#6dffba"/>
+    <linearGradient id="g1" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#1fc383"/>
+      <stop offset="0.5" stop-color="#44eba6"/>
+      <stop offset="1" stop-color="#7dffc4"/>
     </linearGradient>
-    <linearGradient id="rgrad2" x1="1" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#6dffba"/>
-      <stop offset="1" stop-color="#2ee6a0"/>
-    </linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#1fc383" flood-opacity="0.4"/>
+    </filter>
   </defs>
   <rect width="512" height="512" rx="118" fill="url(#bg)"/>
-  <rect x="178" y="132" width="58" height="252" rx="18" fill="url(#rgrad)"/>
-  <path fill="url(#rgrad)" d="M236 132 h62 a80 80 0 0 1 0 160 h-62 a18 18 0 0 1 -18 -18 v-124 a18 18 0 0 1 18 -18 z"/>
-  <path fill="#121318" d="M244 168 h34 a44 44 0 0 1 0 88 h-34 a10 10 0 0 1 -10 -10 v-68 a10 10 0 0 1 10 -10 z" opacity="0.9"/>
-  <path fill="url(#rgrad)" d="M250 286 L168 416 q-8 12 -22 12 h-20 q-12 0 -8 -20 L206 286 q4 -12 18 -12 h18 q16 0 8 12 z"/>
-  <rect x="178" y="404" width="62" height="10" rx="5" fill="url(#rgrad2)"/>
+  <g filter="url(#shadow)" transform="rotate(-42 256 300)">
+    <rect x="150" y="342" width="168" height="40" rx="20" fill="url(#g1)" opacity="0.5"/>
+    <rect x="150" y="278" width="212" height="40" rx="20" fill="url(#g1)" opacity="0.78"/>
+    <rect x="150" y="214" width="256" height="44" rx="22" fill="url(#g1)" opacity="1"/>
+  </g>
 </svg>
