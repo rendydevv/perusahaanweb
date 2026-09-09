@@ -42,7 +42,3 @@ logs/
 
 # TypeScript build info
 *.tsbuildinfo
-
-# Wrangler / Cloudflare
-.wrangler/
-dev.vars

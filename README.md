@@ -127,40 +127,52 @@ docker run -p 80:80 ghcr.io/<your-username>/perusahaanweb:latest
 
 ---
 
-## ☁️ Cloudflare Workers (Static Assets)
+## 🛡️ Cloudflare Protection (WAF / DDoS / SSL)
 
-Situs ini sudah dikonfigurasi untuk di-hosting di **Cloudflare Workers**
-(Static Assets, gratis) — global CDN + SSL otomatis. Setiap `git push` ke
-`main` akan otomatis build & deploy via GitHub Actions.
+Cloudflare di sini berperan sebagai **perisai di depan website** — bukan
+hosting. Semua lalu lintas pengunjung melewati Cloudflare dulu (proxy),
+sehingga serangan DDoS, bot jahat, dan akses mencurigakan diblokir sebelum
+sampai ke server. SSL/HTTPS juga otomatis.
 
-### ✅ Yang sudah saya siapkan
+> ⚠️ **Prasyarat:** kamu harus punya **domain sendiri** (contoh:
+> `sixcompany.com`). Domain gratis `*.vercel.app` **tidak bisa** dipasang
+> Cloudflare karena bukan milikmu. Beli domain di Niagahoster / GoDaddy /
+> Namecheap / dsb (mulai ~Rp100rb/tahun).
 
-- `wrangler.jsonc` — konfigurasi deploy (folder `dist/`, SPA routing).
-- `.github/workflows/deploy-cloudflare.yml` — CI/CD: `npm ci` → `npm run build` → `npx wrangler deploy`.
+### 🔧 Setup sekali (via dashboard, ±30 menit)
 
-### 🔧 Yang harus kamu lakukan sekali (kurang lebih 10 menit)
+1. **Buat akun** di https://dash.cloudflare.com (plan **Free** cukup).
+2. **Add a site** → masukkan domainmu → pilih plan Free → **Continue**.
+   Cloudflare memberi 2 **nameserver** (contoh: `abc.ns.cloudflare.com` dan
+   `def.ns.cloudflare.com`). **Simpan/salin** keduanya.
+3. **Ganti nameserver** di tempat kamu beli domain (registrar):
+   - Buka panel registrar → cari **DNS / Nameservers** → pilih **Custom
+     nameservers** → isi 2 nameserver Cloudflare di atas → simpan.
+   - Tunggu sampai Cloudflare dashboard menampilkan status **Active**
+     (biasanya beberapa menit–24 jam).
+4. **Tambahkan DNS record** di Cloudflare (halaman **DNS → Records**):
+   - Kalau website di **Vercel**: tambahkan **CNAME record**:
+     - `Name`: `www` dan satu lagi `@` (jika didukung) → `Target`:
+       `cname.vercel-dns.com` → **Proxied** (ikon awan oranye) ✅
+   - Kalau website di **server/VPS sendiri (Docker)**: tambahkan **A
+       record**: `Name`: `@` dan `www` → `IPv4`: IP VPS-nya → **Proxied** ✅
+   - Pastikan status semua record **Proxied** (awan oranye), bukan DNS only.
+5. **Aktifkan SSL** (menu **SSL/TLS → Overview**): atur mode ke
+   **Full (strict)** → **Turn on** SSL. Sertifikat dibuat otomatis/gratis.
+6. **Aktifkan proteksi** (menu **Security**):
+   - **Bots**: aktifkan **Bot Fight Mode** (gratis) → **Security → Bots**.
+   - **WAF**: nyalakan **Managed Rules** (gratis, membatasi tier) →
+     **Security → WAF → Manage WAF** → aktifkan rule set.
+   - **DDoS**: aktif otomatis (tidak perlu di-set).
+   - **Security Level** → set **Medium** atau **High** (Security → Settings).
+7. (Opsional) **Web Analytics** gratis: **Analytics & Logs → Web Analytics →
+   Add a site** → centang automatic setup.
 
-1. **Buat akun Cloudflare** di https://dash.cloudflare.com (pilih plan **Free**).
-2. **Ambil Account ID**:
-   - Dashboard → pilih situs/domain kamu → halaman beranda → cari **Account ID** di kanan bawah (atau: icon profil → **My Profile**).
-3. **Buat API Token** (izin deploy Workers):
-   - **My Profile** → **API Tokens** → **Create Token**.
-   - Pilih template **"Edit Cloudflare Workers"** → **Continue** → **Create Token**.
-   - ⚠️ Salin token-nya sekarang (hanya ditampilkan sekali).
-4. **Tambah 2 GitHub Secrets** di repo ini:
-   - GitHub → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**:
-     - `CLOUDFLARE_API_TOKEN` → isi token dari langkah 3.
-     - `CLOUDFLARE_ACCOUNT_ID` → isi Account ID dari langkah 2.
-5. **Deploy**: push ke `main`, atau jalankan manual dari GitHub → **Actions** → **Deploy to Cloudflare** → **Run workflow**.
+### ✅ Cara cek sudah aman
 
-Setelah deploy, situs live di `https://perusahaanweb.<subdomain-kamu>.workers.dev`
-
-### 🌐 Pakai domain sendiri (disarankan)
-
-1. **Tambahkan domain kamu ke Cloudflare**: Cloudflare dashboard → **Add a site** → ikuti langkah, lalu ganti **nameserver** domain di tempat kamu beli domain (Niagahoster/GoDaddy/dll) mengikuti 2 nameserver yang Cloudflare kasih. Tunggu beberapa jam sampai status **Active**.
-2. **Daftarkan worker ke domain**: **Workers & Pages** → pilih **perusahaanweb** → **Settings** → **Domains & Routes** → **Add custom domain** → masukkan `[domain-kamu]` dan `www.[domain-kamu]`.
-   - SSL & DNS otomatis dibuat (gratis, Universal SSL).
-3. (Opsional) Ganti semua teks `perusahaanweb.vercel.app` di `index.html` dengan domain asli kamu.
+- Buka `https://dash.cloudflare.com` → situsmu → **Traffic / Analytics**:
+  kalau ada angka & grafik = lalu lintas sudah lewat Cloudflare.
+- Permintaan serangan (DDoS/WAF) muncul di **Security → Events**.
 
 ---
 
