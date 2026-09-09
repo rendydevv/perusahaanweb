@@ -22,6 +22,14 @@ build/
 *.sw?
 Thumbs.db
 
+# Agent / tooling configuration (not part of the project)
+.agents/
+agent/
+.claude/
+.wrangler/
+skills-lock.json
+DESIGN.md
+
 # Environment variables
 .env
 .env.local
